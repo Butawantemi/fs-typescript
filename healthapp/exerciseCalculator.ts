@@ -30,13 +30,12 @@ function purseArg(argvs: string[]): hoursArg {
   }
 }
 
-function calculateExercises(
+export function calculateExercises(
   trainingHours: number[],
   targetHours: number,
 ): info {
   let sumHours: number = 0;
   let trainDays: number = 0;
-  let averageHours: number = 0;
 
   trainingHours.forEach((hours) => {
     sumHours += hours;
@@ -45,10 +44,10 @@ function calculateExercises(
       trainDays += 1;
     }
   });
-  averageHours = sumHours / trainingHours.length;
+  const averageHours = sumHours / trainingHours.length;
   let status: boolean = false;
-  let rate: number = 1;
-  let discription: string = "";
+  let rate: number;
+  let discription: string;
   if (averageHours >= targetHours) {
     status = true;
   }
@@ -64,7 +63,7 @@ function calculateExercises(
     discription = "too bad you need to improve!";
   }
 
-  let result: info = {
+  const result: info = {
     periodLength: trainingHours.length,
     trainingDays: trainDays,
     success: status,
@@ -77,13 +76,15 @@ function calculateExercises(
   return result;
 }
 
-try {
-  const { target, trainingHours } = purseArg(process.argv);
-  console.log(calculateExercises(trainingHours, target));
-} catch (error: unknown) {
-  let errorMessage = "Something bad happened.";
-  if (error instanceof Error) {
-    errorMessage += " Error: " + error.message;
+if (process.argv[0] === import.meta.filename) {
+  try {
+    const { target, trainingHours } = purseArg(process.argv);
+    console.log(calculateExercises(trainingHours, target));
+  } catch (error: unknown) {
+    let errorMessage = "Something bad happened.";
+    if (error instanceof Error) {
+      errorMessage += " Error: " + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }

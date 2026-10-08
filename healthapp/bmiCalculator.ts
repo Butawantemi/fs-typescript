@@ -1,8 +1,3 @@
-interface bmiValues {
-  height: number;
-  weight: number;
-}
-
 interface bmiArg {
   heightInput: number;
   weightInput: number;
@@ -22,28 +17,30 @@ function parseArgs(argvs: string[]): bmiArg {
   }
 }
 
-function calculateBmi(height: number, weight: number): string {
-  let heightInMeter: number = height / 100;
+export function calculateBmi(height: number, weight: number): string {
+  const heightInMeter: number = height / 100;
   const bmi: number = weight / heightInMeter ** 2;
 
   if (bmi < 18.5) {
-    return "Underweight";
+    return "Underweight range";
   } else if (bmi < 25) {
-    return "Normal weight";
+    return "Normal range";
   } else if (bmi < 30) {
-    return "Overweight";
+    return "Overweight range";
   } else {
-    return "Obese";
+    return "Obese range";
   }
 }
 
-try {
-  const { heightInput, weightInput } = parseArgs(process.argv);
-  console.log(calculateBmi(heightInput, weightInput));
-} catch (error: unknown) {
-  let errorMessage = "Something bad happened.";
-  if (error instanceof Error) {
-    errorMessage += " Error: " + error.message;
+if (process.argv[0] === import.meta.filename) {
+  try {
+    const { heightInput, weightInput } = parseArgs(process.argv);
+    console.log(calculateBmi(heightInput, weightInput));
+  } catch (error: unknown) {
+    let errorMessage = "Something bad happened.";
+    if (error instanceof Error) {
+      errorMessage += " Error: " + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }

@@ -7,13 +7,25 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
     "calculateBmi": "tsc && node --no-warnings bmiCalculator.ts",
-    "calculateExercises": "tsc && node --no-warnings exerciseCalculator.ts"
+    "calculateExercises": "tsc && node --no-warnings exerciseCalculator.ts",
+    "start": "concurrently \"tsc --watch\" \"node --no-warnings --watch index.ts\"",
+    "dev": "concurrently \"tsc --watch\" \"node --no-warnings --watch index.ts\"",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/express": "^5.0.6",
     "@types/node": "^26.6.4",
-    "typescript": "^5.9.3"
+    "concurrently": "^9.2.1",
+    "eslint": "^10.12.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
