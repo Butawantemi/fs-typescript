@@ -5,11 +5,10 @@ import patientsRouter from "./routes/patients.ts";
 
 const app = express();
 app.use(express.json());
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 app.use(cors());
 
 app.get("/api/ping", (_req, res) => {
-  res.send("Pong");
+  res.send("pong");
 });
 
 app.use("/api/diagnoses", diagnosesRouters);
