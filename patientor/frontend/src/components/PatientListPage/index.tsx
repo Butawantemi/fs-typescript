@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
+import { Link } from "react-router-dom";
+import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody, Link as MuiLink } from '@mui/material';
 import axios from 'axios';
 
 import { PatientFormValues, Patient } from "../../types";
@@ -29,7 +30,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
   const submitNewPatient = async (values: PatientFormValues) => {
     try {
       const patient = await patientService.create(values);
-      setPatients(patients.concat(patient));
+     setPatients(prevPatients => prevPatients.concat(patient));
       setModalOpen(false);
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
@@ -66,7 +67,9 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
         <TableBody>
           {Object.values(patients).map((patient: Patient) => (
             <TableRow key={patient.id}>
-              <TableCell>{patient.name}</TableCell>
+              <TableCell><MuiLink component={Link} to={`/patients/${patient.id}`}>
+  {patient.name}
+</MuiLink></TableCell>
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
               <TableCell>
