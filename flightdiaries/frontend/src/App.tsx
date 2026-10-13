@@ -6,7 +6,7 @@ import axios from "axios";
 
 const App = () => {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([])
-  const [date, setDate] = useState<string>("09/02/2026")
+  const [date, setDate] = useState<string>("")
   const [weather, setWeather] = useState<Weather>("sunny")
   const [visibility, setVisibility] = useState<Visibility>("good")
   const [comment, setComment] = useState<string>("")
